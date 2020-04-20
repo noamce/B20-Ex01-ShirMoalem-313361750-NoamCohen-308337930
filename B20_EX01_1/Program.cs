@@ -236,6 +236,7 @@ namespace B20_Ex01_1
                 FlagIsPow = 1;
 
             return FlagIsPow;
+
         }
     }
 }
