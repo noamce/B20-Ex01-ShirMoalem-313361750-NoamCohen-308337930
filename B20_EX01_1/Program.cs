@@ -102,7 +102,6 @@ namespace B20_Ex01_1
             return mimNum;
         }
 
-
         private static int isIncreaseNum(int i_Num, int i_RequestedLen)
         {
             int DecNum = convertInputToDec(i_Num, i_RequestedLen);
@@ -236,7 +235,6 @@ namespace B20_Ex01_1
                 FlagIsPow = 1;
 
             return FlagIsPow;
-
         }
     }
 }
