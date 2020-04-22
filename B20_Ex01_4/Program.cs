@@ -56,14 +56,15 @@ namespace B20_Ex01_4
 
         private static bool isAllCharsIsLettersOrDigits(string i_UserInput)
         {
+            bool containeOnlyVaidChars = true;
             foreach (char inputChar in i_UserInput)
             {
                 if(!char.IsLetterOrDigit(inputChar))
                 {
-                    return false;
+                    containeOnlyVaidChars = false;
                 }
             }
-            return true;
+            return containeOnlyVaidChars;
         }
 
         private static bool checkIfInputIsPalindrome(string i_UserInput)
