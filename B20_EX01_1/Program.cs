@@ -21,9 +21,7 @@ namespace B20_Ex01_1
 
         private static void BinarySeries(int i_RequestedLen, int i_RequestedNumOfInputs)
         {
-            //call to getInput,converInputToDec, printTheDecNum, printStatistics, countZerosAndOnes, checkIfNumPowOfTwo
-
-            int BinaryNumInput, numOfOnes = 0, numOfZeros = 0, numOfNumbersPowOfTwo = 0, numOfNumbersIncreaseSeries = 0, biggestInputNum, lowestInputNum, oneDecNum = 0, twoDecNum = 0, treeDecNum = 0;
+            int BinaryNumInput, numOfOnes = 0, numOfZeros = 0 ,decInputNum , numOfNumbersPowOfTwo = 0, numOfNumbersIncreaseSeries = 0, biggestInputNum, lowestInputNum, oneDecNum = -1, twoDecNum = -1, treeDecNum = -1;
             float numOfZerosAvg = 0, numOfOnesAvg = 0;
 
             for (int i = 0; i < i_RequestedNumOfInputs; ++i)
@@ -33,27 +31,31 @@ namespace B20_Ex01_1
                 numOfOnes += countOnes(BinaryNumInput, i_RequestedLen);
                 numOfZeros += countZeros(BinaryNumInput, i_RequestedLen);
 
-                numOfNumbersIncreaseSeries += isIncreaseNum(BinaryNumInput, i_RequestedLen);
+                decInputNum = convertInputToDec(BinaryNumInput, i_RequestedLen);
+
+                numOfNumbersIncreaseSeries += isIncreaseNum(decInputNum);
+
+                //numOfNumbersIncreaseSeries += isIncreaseNum(BinaryNumInput, i_RequestedLen);
                 if (i == 0)
                 {
-                    oneDecNum = convertInputToDec(BinaryNumInput, i_RequestedLen);
+                    oneDecNum = decInputNum;
+                    //oneDecNum = convertInputToDec(BinaryNumInput, i_RequestedLen);
                     numOfNumbersPowOfTwo += isPowOfTwo(oneDecNum);
                 }
                 else if (i == 1)
                 {
-                    twoDecNum = convertInputToDec(BinaryNumInput, i_RequestedLen);
+                    twoDecNum = decInputNum;
                     numOfNumbersPowOfTwo += isPowOfTwo(twoDecNum);
                 }
-                else
+                else 
                 {
-                    treeDecNum = convertInputToDec(BinaryNumInput, i_RequestedLen);
+                    treeDecNum = decInputNum;
                     numOfNumbersPowOfTwo += isPowOfTwo(treeDecNum);
                 }
             }
+
             biggestInputNum = findTheBiggest(oneDecNum, twoDecNum, treeDecNum);
             lowestInputNum = findTheLowest(oneDecNum, twoDecNum, treeDecNum);
-
-
             numOfZerosAvg = (float)numOfZeros / i_RequestedNumOfInputs;
             numOfOnesAvg = (float)numOfOnes / i_RequestedNumOfInputs;
 
@@ -72,117 +74,137 @@ namespace B20_Ex01_1
         {
             int maxNum = i_NumOne;
 
-            if (maxNum < i_NumTwo)
-            {
-                maxNum = i_NumTwo;
-            }
+            maxNum = Math.Max(maxNum,i_NumTwo);
 
-            if (maxNum < i_NumTree)
-            {
-                maxNum = i_NumTree;
-            }
+            maxNum = Math.Max(maxNum,i_NumTree);
 
             return maxNum;
         }
 
         private static int findTheLowest(int i_NumOne, int i_NumTwo, int i_NumTree)
         {
-            int mimNum = i_NumOne;
+           int mimNum = i_NumOne;
 
-            if (mimNum > i_NumTwo)
-            {
-                mimNum = i_NumTwo;
-            }
+           mimNum = Math.Min(mimNum, i_NumTwo);
 
-            if (mimNum > i_NumTree)
-            {
-                mimNum = i_NumTree;
-            }
+           mimNum = Math.Min(mimNum, i_NumTree);
 
             return mimNum;
         }
 
-
-        private static int isIncreaseNum(int i_Num, int i_RequestedLen)
+       /* private static int isIncreaseNum(int i_Num, int i_RequestedLen)
         {
             int DecNum = convertInputToDec(i_Num, i_RequestedLen);
             int rightDig = DecNum % 10;
             DecNum /= 10;
-            int unity, FlagIsIncrease = 1;
+            int unityDigit, FlagIsIncrease = 1;
 
             while (DecNum > 0 && FlagIsIncrease == 1)
             {
-                unity = DecNum % 10; ;
-                if (unity >= rightDig)
+                unityDigit = DecNum % 10; ;
+                if (unityDigit >= rightDig)
                 {
                     FlagIsIncrease = 0;
                 }
                 else
                 {
-                    rightDig = unity;
+                    rightDig = unityDigit;
                 }
                 DecNum /= 10;
             }
             return FlagIsIncrease;
+        }*/
+
+        private static int isIncreaseNum(int i_DecNum)
+        {
+            int rightDig = i_DecNum % 10;
+            i_DecNum /= 10;
+            int unityDigit, isIncreaseNum = 1;
+
+            while (i_DecNum > 0 && isIncreaseNum == 1)
+            {
+                unityDigit = i_DecNum % 10; ;
+                if (unityDigit >= rightDig)
+                {
+                    isIncreaseNum = 0;
+                }
+                else
+                {
+                    rightDig = unityDigit;
+                }
+                i_DecNum /= 10;
+            }
+            return isIncreaseNum;
         }
 
-        private static int getInput(int i_RequestedLen)
+        private static int getInput(int i_NumLen)
         {
-            //get the input and check his validation. if not valid- error. else- convert to dec and return it.
             string inputNumStr = System.Console.ReadLine();
             int inputNum;
             bool isValidInputNum = int.TryParse(inputNumStr, out inputNum);
-            //TryParse - converts the string representation of a number to its 32-bit signed integer equivalent. A return value indicates whether the conversion succeeded.
 
-            if (isValidInputNum)
+            if(isValidInputNum == true)
             {
-                isValidInputNum = checkIfValidBinaryNum(inputNum, i_RequestedLen);
+                isValidInputNum = checkIfValidBinaryNum(inputNum, i_NumLen);
             }
-
-            if (!isValidInputNum || inputNumStr.Length != i_RequestedLen)
-            {// the input is not valid
+            /*
+            if(!isValidInputNum || inputNumStr.Length != i_NumLen)
+            {
                 System.Console.WriteLine("Please try again with a valid input");
-                getInput(i_RequestedLen);
+               // getInput(i_NumLen);
+               inputNum = -1;
+            }
+            */
+
+            while (!isValidInputNum || (inputNumStr != null && inputNumStr.Length != i_NumLen))
+            {
+                System.Console.WriteLine("Please try again with a valid input");
+                inputNumStr = System.Console.ReadLine();
+                isValidInputNum = int.TryParse(inputNumStr, out inputNum);
+                if (isValidInputNum)
+                {
+                    isValidInputNum = checkIfValidBinaryNum(inputNum, i_NumLen);
+                }
             }
 
             return inputNum;
         }
 
-        private static bool checkIfValidBinaryNum(int i_Num, int i_NumLen)
+        private static bool checkIfValidBinaryNum(int i_BinNum, int i_NumLen)
         {
             bool isValidBinNum = true;
             int partialNum;
 
 
-            for (int i = 0; i < i_NumLen; i++)
+            for(int i = 0; i < i_NumLen; i++)
             {
-                partialNum = i_Num % 10;
+                partialNum = i_BinNum % 10;
 
-                if (partialNum != 1 && partialNum != 0)
+                if(partialNum != 1 && partialNum != 0)
                 {
                     isValidBinNum = false;
                 }
 
-                i_Num /= 10;
+                i_BinNum /= 10;
             }
 
             return isValidBinNum;
         }
 
-        private static int convertInputToDec(int i_Num, int i_RequestedLen)
+        private static int convertInputToDec(int i_BinNum, int i_NumLen)
         {
             int decResult = 0;
 
-            for (int i = 0; i < i_RequestedLen; ++i)
+            for(int i = 0; i < i_NumLen; ++i)
             {
-                int unity = i_Num % 10;
+                int unityDigit = i_BinNum % 10;
 
-                if (unity == 1)
+                if(unityDigit == 1)
                 {
-                    decResult += unity * (int)System.Math.Pow(2, i);
-                }
+                    decResult += unityDigit * (int)System.Math.Pow(2, i);
 
-                i_Num /= 10;
+                }
+                i_BinNum /= 10;
             }
 
             return decResult;
@@ -192,51 +214,50 @@ namespace B20_Ex01_1
 
         //private static void printStatistics(int i_DecNum){ }
 
-        private static int countZeros(int i_Num, int i_NumLen)
+        private static int countZeros(int i_BinNum, int i_NumLen)
         {
-            int ZerosNumber = 0;
+            int numberOfZeros = 0;
 
-            for (int i = 0; i < i_NumLen; ++i)
+            for(int i = 0; i < i_NumLen; ++i)
             {
-                int unity = i_Num % 10;
+                int unityDigit = i_BinNum % 10;
 
-                if (unity == 0)
+                if (unityDigit == 0)
                 {
-                    ZerosNumber++;
+                    numberOfZeros++;
                 }
-                i_Num /= 10;
+                i_BinNum /= 10;
             }
-            return ZerosNumber;
+            return numberOfZeros;
         }
 
-        private static int countOnes(int i_Num, int i_NumLen)
+        private static int countOnes(int i_BinNum, int i_NumLen)
         {
-            int OnesNumber = 0;
+            int numberOfOnes = 0;
 
-            for (int i = 0; i < i_NumLen; ++i)
+            for(int i = 0; i < i_NumLen; ++i)
             {
-                int unity = i_Num % 10;
+                int unityDigit = i_BinNum % 10;
 
-                if (unity == 1)
+                if (unityDigit == 1)
                 {
-                    OnesNumber++;
+                    numberOfOnes++;
                 }
-                i_Num /= 10;
+                i_BinNum /= 10;
             }
-            return OnesNumber;
+            return numberOfOnes;
         }
 
-        private static int isPowOfTwo(int i_Num)
+        private static int isPowOfTwo(int i_DecNum)
         {
-            double log = Math.Log(i_Num, 2);
+            double log = Math.Log(i_DecNum, 2);
             double pow = Math.Pow(2, Math.Round(log));
-            int FlagIsPow = 0;
+            int powOfTwo = 0;
 
-            if (pow == i_Num)
-                FlagIsPow = 1;
+            if(pow == i_DecNum)
+                powOfTwo = 1;
 
-            return FlagIsPow;
-
+            return powOfTwo;
         }
     }
 }
