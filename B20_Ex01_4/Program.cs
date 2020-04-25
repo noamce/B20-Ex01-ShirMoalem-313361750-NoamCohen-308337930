@@ -76,15 +76,16 @@ namespace B20_Ex01_4
         private static bool checkIfInputIsPalindromeRec(StringBuilder i_UserInput)
         {
             bool isPalindrome = true;
-            if (i_UserInput.Length == 0)
+            if (i_UserInput.Length != 0)
             {
-                return isPalindrome;
+                isPalindrome = i_UserInput[0] == i_UserInput[i_UserInput.Length - 1];
+                i_UserInput.Remove(i_UserInput.Length - 1, 1);
+                i_UserInput.Remove(0, 1);
+                isPalindrome = isPalindrome && checkIfInputIsPalindromeRec(i_UserInput);
             }
-            isPalindrome = i_UserInput[0] == i_UserInput[i_UserInput.Length - 1];
-            i_UserInput.Remove(i_UserInput.Length - 1, 1);
-            i_UserInput.Remove(0, 1);
 
-            return isPalindrome && checkIfInputIsPalindromeRec(i_UserInput); ;
+            return isPalindrome;
+
         }
 
         private static int howManyUpperCaseLetters(string i_StringInput)
