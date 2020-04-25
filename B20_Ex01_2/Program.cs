@@ -6,48 +6,54 @@ using System.Threading.Tasks;
 
 namespace B20_Ex01_2
 {
-    class Program
+    public class Program
     {
+        public const int k_numOfAsterisksInLine = 5;
+
         public static void Main()
         {
-            int k_numOfAshteriskInLine = 5;
-            int k_numOfSpacesInLine = 0;
-            StringBuilder sandClock = new StringBuilder();
-            BuildSandClock(k_numOfAshteriskInLine, k_numOfSpacesInLine, sandClock);
-            System.Console.WriteLine(sandClock);
+            PrintHourGlassOfAsterisks(k_numOfAsterisksInLine);
         }
 
-        private static void BuildSandClock(int i_NumOfAshtrikInLine, int i_NumOfSpaces, StringBuilder o_SandClock)
+        public static void PrintHourGlassOfAsterisks(int i_HourGlassHeight)
         {
-            if (i_NumOfAshtrikInLine >= 1)
+            int numOfSpacesInLine = 0;
+            StringBuilder hourGlassString = new StringBuilder();
+            BuildHourGlass(i_HourGlassHeight, numOfSpacesInLine, hourGlassString);
+            System.Console.WriteLine(hourGlassString);
+        }
+
+        private static void BuildHourGlass(int i_NumOfAsterisksInLine, int i_NumOfSpaces, StringBuilder o_HourGlassString)
+        {
+            if (i_NumOfAsterisksInLine >= 1)
             {
                 for (int i = 0; i < i_NumOfSpaces; i++)
                 {
-                    o_SandClock.Append(' ');
+                    o_HourGlassString.Append(' ');
                 }
 
-                for (int i = 0; i < i_NumOfAshtrikInLine; i++)
+                for (int i = 0; i < i_NumOfAsterisksInLine; i++)
                 {
-                    o_SandClock.Append('*');
+                    o_HourGlassString.Append('*');
                 }
 
-                o_SandClock.Append('\n');
-                BuildSandClock(i_NumOfAshtrikInLine - 2, i_NumOfSpaces + 1, o_SandClock);
+                o_HourGlassString.Append('\n');
+                BuildHourGlass(i_NumOfAsterisksInLine - 2, i_NumOfSpaces + 1, o_HourGlassString);
             }
 
-            if (i_NumOfAshtrikInLine - 2 >= 1)
+            if (i_NumOfAsterisksInLine - 2 >= 1)
             {
                 for (int i = 0; i < i_NumOfSpaces; i++)
                 {
-                    o_SandClock.Append(' ');
+                    o_HourGlassString.Append(' ');
                 }
 
-                for (int i = 0; i < i_NumOfAshtrikInLine; i++)
+                for (int i = 0; i < i_NumOfAsterisksInLine; i++)
                 {
-                    o_SandClock.Append('*');
+                    o_HourGlassString.Append('*');
                 }
 
-                o_SandClock.Append('\n');
+                o_HourGlassString.Append('\n');
             }
         }
     }
