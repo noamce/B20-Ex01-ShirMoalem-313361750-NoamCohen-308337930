@@ -54,8 +54,9 @@ namespace B20_Ex01_5
 
         private static bool InputValidation(string i_UserInput, out int o_UserInputAsInt)
         {
-            bool isInputValid = int.TryParse(i_UserInput, out o_UserInputAsInt) && i_UserInput.Length == k_NumberOfDigitsToRecive && o_UserInputAsInt >= 0;
-            return isInputValid;
+            bool isANumber = int.TryParse(i_UserInput, out o_UserInputAsInt);
+            bool isInputValid = i_UserInput.Length == k_NumberOfDigitsToRecive && o_UserInputAsInt > 0;
+            return isInputValid && isANumber;
         }
 
         private static void AddToCounterIfDividedByThree(int i_CurrentDigit, ref int io_DividedByThreeCounter)

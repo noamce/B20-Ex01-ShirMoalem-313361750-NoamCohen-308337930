@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+B20_Ex01_5/B20_Ex01_5.csproj
+B20_Ex01_5/packages.config
