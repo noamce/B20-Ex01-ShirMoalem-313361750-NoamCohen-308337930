@@ -7,21 +7,21 @@ namespace B20_Ex01_4
     {
         public static void Main()
         {
-            int requestedLenOfInput = 8;
+            int     requestedLenOfInput = 8;
             AnalyzeString(requestedLenOfInput);
         }
 
         public static void AnalyzeString(int i_RequestedLenOfInput)
         {
-            string userInput = getInputFromUser(i_RequestedLenOfInput);
-            bool isPalindrom = checkIfInputIsPalindrome(userInput);
-            bool isNumber = int.TryParse(userInput, out int userInputAsNumber);
-            bool isDividedByFive = false;
-            int upperCaseCounter = 0;
+            string      userInput = getInputFromUser(i_RequestedLenOfInput);
+            bool        isPalindrom = checkIfInputIsPalindrome(userInput);
+            bool        isNumber = int.TryParse(userInput, out int userInputAsNumber);
+            bool        isDividedByFive = false;
+            int         upperCaseCounter = 0;
 
-            if (isNumber == true)
+            if(isNumber == true)
             {
-                isDividedByFive = (userInputAsNumber % 5 == 0);
+                isDividedByFive = userInputAsNumber % 5 == 0;
             }
             else
             {
@@ -33,14 +33,14 @@ namespace B20_Ex01_4
 
         private static string getInputFromUser(int i_RequestedLenOfInput)
         {
-            string userInput;
-            bool isInputValid = false;
+            string      userInput;
+            bool        isInputValid = false;
 
             do
             {
                 Console.WriteLine("Please enter a {0} chars input (and press enter):", i_RequestedLenOfInput);
                 userInput = Console.ReadLine();
-                if (userInput.Length != i_RequestedLenOfInput || !isAllCharsAreLettersOrDigits(userInput))
+                if(userInput.Length != i_RequestedLenOfInput || !isAllCharsAreLettersOrDigits(userInput))
                 {
                     System.Console.WriteLine("Invalid input!");
                 }
@@ -49,15 +49,16 @@ namespace B20_Ex01_4
                     isInputValid = true;
                 }
             }
-            while (isInputValid == false);
+            while(isInputValid == false);
 
             return userInput;
         }
 
         private static bool isAllCharsAreLettersOrDigits(string i_UserInput)
         {
-            bool containeOnlyVaidChars = true;
-            foreach (char inputChar in i_UserInput)
+            bool     containeOnlyVaidChars = true;
+
+            foreach(char inputChar in i_UserInput)
             {
                 if(!char.IsLetterOrDigit(inputChar))
                 {
@@ -70,16 +71,16 @@ namespace B20_Ex01_4
 
         private static bool checkIfInputIsPalindrome(string i_UserInput)
         {
-            StringBuilder stringToCheck = new StringBuilder(i_UserInput);
+            StringBuilder       stringToCheck = new StringBuilder(i_UserInput);
 
             return checkIfInputIsPalindromeRec(stringToCheck);
         }
 
         private static bool checkIfInputIsPalindromeRec(StringBuilder i_UserInput)
         {
-            bool isPalindrome = true;
+            bool        isPalindrome = true;
 
-            if (i_UserInput.Length != 0)
+            if(i_UserInput.Length != 0)
             {
                 isPalindrome = i_UserInput[0] == i_UserInput[i_UserInput.Length - 1];
                 i_UserInput.Remove(i_UserInput.Length - 1, 1);
@@ -92,9 +93,9 @@ namespace B20_Ex01_4
 
         private static int howManyUpperCaseLetters(string i_StringInput,int i_RequestedLenOfInput)
         {
-            int upperCaseCounter = 0;
+            int     upperCaseCounter = 0;
 
-            for (int i = 0; i < i_RequestedLenOfInput; i++)
+            for(int i = 0; i < i_RequestedLenOfInput; i++)
             {
                 if (char.IsUpper(i_StringInput[i]) == true)
                 {
@@ -107,7 +108,7 @@ namespace B20_Ex01_4
 
         private static void printAnalysis(bool i_IsPalindrome, bool i_IsNumber, bool i_IsDividedByFive, int i_UpperCaseCounter)
         {
-            string outPut = string.Format(
+            string      outPut = string.Format(
             @"The input's Analysis:
                 The input is {0}
                 {1}",

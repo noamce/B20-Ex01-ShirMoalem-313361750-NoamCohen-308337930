@@ -6,27 +6,27 @@ namespace B20_Ex01_3
     {
         public static void Main()
         {
-            int hourGlassHeight = getUserInput();
+            int     hourGlassHeight = getUserInput();
             B20_Ex01_2.Program.PrintHourGlassOfAsterisks(hourGlassHeight);
         }
 
         private static int getUserInput()
         {
-            string userInput = String.Empty;
-            int hourGlassHeight = -1;
-            bool isInputValid = false;
+            string      userInput = String.Empty;
+            int         hourGlassHeight = -1;
+            bool        isInputValid = false;
 
             do
             {
                 Console.WriteLine("Please Enter the desired hour glass height");
                 userInput = Console.ReadLine();
                 isInputValid = inputValidation(userInput, out hourGlassHeight);
-                if (isInputValid == false)
+                if(isInputValid == false)
                 {
                     Console.WriteLine("Invalid input!");
                 }
             }
-            while (isInputValid == false);
+            while(isInputValid == false);
 
             return hourGlassHeight;
         }
