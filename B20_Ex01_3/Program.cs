@@ -4,7 +4,6 @@ namespace B20_Ex01_3
 {
     class Program
     {
-
         public static void Main()
         {
             int hourGlassHeight = getUserInput();
@@ -13,8 +12,8 @@ namespace B20_Ex01_3
 
         private static int getUserInput()
         {
-            string userInput;
-            int hourGlassHeight;
+            string userInput = String.Empty;
+            int hourGlassHeight = -1;
             bool isInputValid = false;
 
             do
@@ -22,7 +21,7 @@ namespace B20_Ex01_3
                 Console.WriteLine("Please Enter the desired hour glass height");
                 userInput = Console.ReadLine();
                 isInputValid = inputValidation(userInput, out hourGlassHeight);
-                if (isInputValid == false )
+                if (isInputValid == false)
                 {
                     Console.WriteLine("Invalid input!");
                 }
