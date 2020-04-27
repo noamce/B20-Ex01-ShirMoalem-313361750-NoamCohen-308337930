@@ -1,65 +1,67 @@
-﻿using System;
-
+﻿
 namespace B20_Ex01_5
 {
+    using System;
+
     public class Program
     {
-        public const int k_NumberOfDigitsToRecive = 9;
-        public const int k_Base = 10;
-
         public static void Main()
         {
-            int userInputNumber = GetNumberFromUser();
-            ClacAndPrintStatistics(userInputNumber);
+            int i_NumberOfDigitsToRecive = 9;
+            int userInputNumber = getNumberFromUser(i_NumberOfDigitsToRecive);
+            clacAndPrintStatistics(userInputNumber, i_NumberOfDigitsToRecive);
         }
 
-        public static int GetNumberFromUser()
+        private static int getNumberFromUser(int i_NumberOfDigitsToRecive)
         {
-            System.Console.WriteLine("Hi, please type a number with {0} digits (and press enter):", k_NumberOfDigitsToRecive);
+            Console.WriteLine("Hi, please type a number with {0} digits (and press enter):", i_NumberOfDigitsToRecive);
             string userInput;
             int userInputAsInt;
             bool isInputValid = false;
+
             do
             {
-                Console.WriteLine("Please enter a {0} digits number", k_NumberOfDigitsToRecive);
-                userInput = Console.ReadLine();
-                isInputValid = InputValidation(userInput, out userInputAsInt);
+                Console.WriteLine("Please enter a {0} digits number", i_NumberOfDigitsToRecive);
+                userInput = System.Console.ReadLine();
+                isInputValid = inputValidation(userInput, out userInputAsInt, i_NumberOfDigitsToRecive);
                 if (isInputValid == false)
                 {
                     Console.WriteLine("Invalid input!");
                 }
             }
             while (isInputValid == false);
+
             return userInputAsInt;
         }
 
-        public static void ClacAndPrintStatistics(int i_Number)
+        private static void clacAndPrintStatistics(int i_Number, int i_NumberOfDigitsToRecive)
         {
-            int unityDigit = i_Number % k_Base;
+            int unityDigit = i_Number % 10;
             int currentDigit = unityDigit;
             int biggestDigit = unityDigit, smallestDigit = unityDigit, dividedByThreeCounter = 0, biggerThanUnityDigitCounter = 0;
 
-            for (int i = 0; i < k_NumberOfDigitsToRecive; i++)
+            for (int i = 0; i < i_NumberOfDigitsToRecive; i++)
             {
                 biggestDigit = Math.Max(currentDigit, biggestDigit);
                 smallestDigit = Math.Min(currentDigit, smallestDigit);
-                AddToCounterIfDividedByThree(currentDigit, ref dividedByThreeCounter);
-                AddToCounterIfBiggerThanUnityDigit(currentDigit, unityDigit, ref biggerThanUnityDigitCounter);
-                i_Number /= k_Base;
-                currentDigit = i_Number % k_Base;
+                addToCounterIfDividedByThree(currentDigit, ref dividedByThreeCounter);
+                addToCounterIfBiggerThanUnityDigit(currentDigit, unityDigit, ref biggerThanUnityDigitCounter);
+                i_Number /= 10;
+                currentDigit = i_Number % 10;
             }
 
-            PrintStatistics(biggestDigit, smallestDigit, dividedByThreeCounter, biggerThanUnityDigitCounter);
+            printStatistics(biggestDigit, smallestDigit, dividedByThreeCounter, biggerThanUnityDigitCounter);
         }
 
-        private static bool InputValidation(string i_UserInput, out int o_UserInputAsInt)
+        private static bool inputValidation(string i_UserInput, out int o_UserInputAsInt, int i_NumberOfDigitsToRecive)
         {
             bool isANumber = int.TryParse(i_UserInput, out o_UserInputAsInt);
-            bool isInputValid = i_UserInput.Length == k_NumberOfDigitsToRecive && o_UserInputAsInt > 0;
+            bool isInputValid = i_UserInput.Length == i_NumberOfDigitsToRecive && o_UserInputAsInt > 0;
+
             return isInputValid && isANumber;
         }
 
-        private static void AddToCounterIfDividedByThree(int i_CurrentDigit, ref int io_DividedByThreeCounter)
+        private static void addToCounterIfDividedByThree(int i_CurrentDigit, ref int io_DividedByThreeCounter)
         {
             if (i_CurrentDigit % 3 == 0)
             {
@@ -67,7 +69,7 @@ namespace B20_Ex01_5
             }
         }
 
-        private static void AddToCounterIfBiggerThanUnityDigit(int i_CurrentDigit, int i_UnityDigit, ref int io_BiggerThanUnityDigitCounter)
+        private static void addToCounterIfBiggerThanUnityDigit(int i_CurrentDigit, int i_UnityDigit, ref int io_BiggerThanUnityDigitCounter)
         {
           if (i_CurrentDigit > i_UnityDigit)
             {
@@ -75,7 +77,7 @@ namespace B20_Ex01_5
             }
         }
 
-        private static void PrintStatistics(int i_BiggestDigit, int i_SmallestDigit, int i_DividedByThreeCounter, int i_LargerThanUnityDigitCounter)
+        private static void printStatistics(int i_BiggestDigit, int i_SmallestDigit, int i_DividedByThreeCounter, int i_LargerThanUnityDigitCounter)
         {
             string outPut = string.Format(
             @"The number you have entered statistics are:
@@ -87,6 +89,7 @@ namespace B20_Ex01_5
             i_SmallestDigit,
             i_DividedByThreeCounter,
             i_LargerThanUnityDigitCounter);
+
             Console.WriteLine(outPut);
         }
     }
