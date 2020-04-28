@@ -7,6 +7,7 @@ namespace B20_Ex01_3
         public static void Main()
         {
             int     hourGlassHeight = getUserInput();
+
             B20_Ex01_2.Program.PrintHourGlassOfAsterisks(hourGlassHeight);
         }
 
@@ -15,10 +16,11 @@ namespace B20_Ex01_3
             string      userInput = String.Empty;
             int         hourGlassHeight = -1;
             bool        isInputValid = false;
+            bool        isParity = false;
 
             do
             {
-                Console.WriteLine("Please Enter the desired hour glass height");
+                Console.WriteLine("Please enter the number of lines for the hourglass height:");
                 userInput = Console.ReadLine();
                 isInputValid = inputValidation(userInput, out hourGlassHeight);
                 if(isInputValid == false)
@@ -28,6 +30,12 @@ namespace B20_Ex01_3
             }
             while(isInputValid == false);
 
+            isParity = (hourGlassHeight % 2 == 0);
+            if(isParity == true)
+            {
+                hourGlassHeight--;
+            }
+            
             return hourGlassHeight;
         }
 
