@@ -56,17 +56,30 @@ namespace B20_Ex01_4
 
         private static bool isAllCharsAreLettersOrDigits(string i_UserInput)
         {
-            bool     containeOnlyVaidChars = true;
+            bool    containeOnlyVaidChars = true;
+            bool    containeOnlyVaidDigits = true;
 
-            foreach(char inputChar in i_UserInput)
+            foreach (char inputChar in i_UserInput)
             {
-                if(!char.IsLetterOrDigit(inputChar))
+                if(!char.IsLetter(inputChar))
                 {
                     containeOnlyVaidChars = false;
                 }
             }
 
-            return containeOnlyVaidChars;
+            if (containeOnlyVaidChars == false)
+            {
+                foreach (char inputChar in i_UserInput)
+                {
+                    if (!char.IsDigit(inputChar))
+                    {
+                        containeOnlyVaidDigits = false;
+                    }
+                }
+            }
+
+
+            return containeOnlyVaidChars || containeOnlyVaidDigits;
         }
 
         private static bool checkIfInputIsPalindrome(string i_UserInput)

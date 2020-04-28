@@ -7,23 +7,26 @@ namespace B20_Ex01_5
     {
         public static void Main()
         {
-            int     i_NumberOfDigitsToRecive = 9;
-            int     userInputNumber = getNumberFromUser(i_NumberOfDigitsToRecive);
-            clacAndPrintStatistics(userInputNumber, i_NumberOfDigitsToRecive);
+            int numberOfDigitsToRecive = 9;
+            int userInputNumber = getNumberFromUser(numberOfDigitsToRecive);
+
+            clacAndPrintStatistics(userInputNumber, numberOfDigitsToRecive);
         }
 
         private static int getNumberFromUser(int i_NumberOfDigitsToRecive)
         {
-            Console.WriteLine("Hi, please type a number with {0} digits (and press enter):", i_NumberOfDigitsToRecive);
-            string      userInput;
-            int         userInputAsInt;
-            bool        isInputValid = false;
+            string  userInput;
+            int     userInputAsInt;
+            bool    isInputValid = false;
 
+            Console.WriteLine("Hi, please type a number with {0} digits (and press enter):", i_NumberOfDigitsToRecive);
+            
             do
             {
                 Console.WriteLine("Please enter a {0} digits number", i_NumberOfDigitsToRecive);
                 userInput = System.Console.ReadLine();
                 isInputValid = inputValidation(userInput, out userInputAsInt, i_NumberOfDigitsToRecive);
+
                 if(isInputValid == false)
                 {
                     Console.WriteLine("Invalid input!");
@@ -36,11 +39,11 @@ namespace B20_Ex01_5
 
         private static void clacAndPrintStatistics(int i_Number, int i_NumberOfDigitsToRecive)
         {
-            int     unityDigit = i_Number % 10;
-            int     currentDigit = unityDigit;
-            int     biggestDigit = unityDigit, smallestDigit = unityDigit, dividedByThreeCounter = 0, biggerThanUnityDigitCounter = 0;
+            int unityDigit = i_Number % 10;
+            int currentDigit = unityDigit;
+            int biggestDigit = unityDigit, smallestDigit = unityDigit, dividedByThreeCounter = 0, biggerThanUnityDigitCounter = 0;
 
-            for(int i = 0; i < i_NumberOfDigitsToRecive; i++)
+            for(int i = 0 ; i < i_NumberOfDigitsToRecive ; i++)
             {
                 biggestDigit = Math.Max(currentDigit, biggestDigit);
                 smallestDigit = Math.Min(currentDigit, smallestDigit);
@@ -79,7 +82,7 @@ namespace B20_Ex01_5
 
         private static void printStatistics(int i_BiggestDigit, int i_SmallestDigit, int i_DividedByThreeCounter, int i_LargerThanUnityDigitCounter)
         {
-            string      outPut = string.Format(
+            string  outPut = string.Format(
             @"The number you have entered statistics are:
             The larger digit is: {0}
             The smallest digit is: {1}
